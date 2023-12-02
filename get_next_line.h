@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iozmen <iozmen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/01 14:35:01 by iozmen            #+#    #+#             */
-/*   Updated: 2023/12/02 16:54:10 by iozmen           ###   ########.fr       */
+/*   Created: 2023/12/01 14:25:18 by iozmen            #+#    #+#             */
+/*   Updated: 2023/12/02 18:21:56 by iozmen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,18 @@
 # define GET_NEXT_LINE_H
 
 # ifndef BUFFER_SIZE
-# define BUFFER_SIZE 1000000
+#  define BUFFER_SIZE 1
 # endif
 
 # include <stdlib.h>
 # include <unistd.h>
 
-char *get_next_line(int fd);
-char *ft_getlines(int fd, char *src);
-int ft_strlen(char *str);
-int	ft_strchr(char *str, char c);
-char *ft_strjoin(char *s1, char *s2);
-char *ft_getline(char *dst);
-char	*ft_getget(char *str);
-
+int		ft_strlen(char *c);
+int		ft_find(char *finder);
+char	*ft_line(char *handle_string);
+char	*ft_clean(char *handle_string);
+char	*ft_read(int fd, char *str);
+char	*get_next_line(int fd);
+char	*ft_strjoin(char *lft_str, char *buff);
 
 #endif

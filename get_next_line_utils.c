@@ -12,121 +12,114 @@
 
 #include "get_next_line.h"
 
-int	ft_strlen(char *str)
+int	ft_strlen(char *c)
 {
 	int	i;
 
-	if (!str)
-		return (0);
 	i = 0;
-	while (str[i])
+	if (!c)
+		return (0);
+	while (c[i])
+	{
 		i++;
+	}
 	return (i);
 }
-int	ft_strchr(char *str, char c)
+
+int	ft_find(char *finder)
 {
 	int	i;
 
+	i = 0;
+	if (!finder)
+		return (1);
+	while (finder && finder[i])
+	{
+		if (finder[i] == '\n')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+char	*ft_strjoin(char *lft_str, char *buff)
+{
+	size_t	i;
+	size_t	j;
+	char	*str;
+
+	if (!lft_str)
+	{
+		lft_str = malloc (sizeof(char) * 1);
+		lft_str[0] = '\0';
+	}
+	if (!buff)
+		return (0);
+	str = malloc (sizeof(char) * (ft_strlen(lft_str) + ft_strlen(buff) + 1));
 	if (!str)
 		return (0);
-	i = ft_strlen(str);
-	while (i >= 0)
-	{
-		if (*str == c)
-			return (1);
-		i--;
-		str++;
-	}
-	return (0);
-}
-
-char *ft_strjoin(char *s1, char *s2) 
-{
-	int		i;
-	int		j;
-	char	*join;
-	
-	if(!s1)
-	{
-		s1 = malloc(sizeof(char) * 1);
-		s1[0] = '\0';
-	}
-	join = malloc((sizeof(char)) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (!join)
-	{
-		return (NULL);
-	}
 	i = -1;
-	while(s1[++i] != '\0') // !
-	{
-		join[i] = s1[i];
-	}
+	while (lft_str[++i] != '\0')
+		str[i] = lft_str[i];
 	j = 0;
-	while(s2[j] != '\0')
-	{
-		join[i++] = s2[j++];
-	}
-	join[i] = '\0';
-	free (s1);
-	return (join);	
+	while (buff[j] != '\0')
+		str[i++] = buff[j++];
+	str[i] = '\0';
+	free(lft_str);
+	return (str);
 }
 
-char *ft_getline(char *dst)
+char	*ft_line(char *handle_string)
 {
+	char	*ptr;
 	int		i;
-	char	*ret;
 
 	i = 0;
-	if (!dst[i])
+	if (!handle_string[i])
+	{
 		return (NULL);
-	while (dst[i] && dst[i] != '\n')
+	}
+	while (handle_string[i] && handle_string[i] != '\n')
 		i++;
-	if (dst[i] == '\n')
-		i++;
-	ret = malloc(sizeof(char) * (i + 1));
-	if (!ret)
-		return (NULL);
+	ptr = malloc (sizeof(char) * (i + 2));
 	i = 0;
-	while (dst[i] && dst[i] != '\n')
+	if (!ptr)
+		return (0);
+	while (handle_string[i] && handle_string[i] != '\n')
 	{
-		ret[i] = dst[i];
+		ptr[i] = handle_string[i];
 		i++;
 	}
-	if (dst[i] == '\n')
-	{
-		ret[i] = dst[i];
-		i++;
-	}
-	ret[i] = '\0';
-	return (ret);
+	if (handle_string[i] == '\n')
+		ptr[i++] = '\n';
+	ptr[i] = '\0';
+	return (ptr);
 }
-char	*ft_getget(char *str)
+
+char	*ft_clean(char *handle_string)
 {
 	int		i;
 	int		j;
-	char	*ret;
+	char	*ptr;
 
 	i = 0;
 	j = 0;
-	while (str[i] != '\n' && str[i])
+	while (handle_string[i] && handle_string[i] != '\n')
 		i++;
-	if(!str[i])
+	if (!handle_string[i])
 	{
-		free(str);
-		return (NULL);
+		free(handle_string);
+		return (0);
 	}
-	ret = malloc(sizeof(char) * (ft_strlen(str) - i + 1));
-	if (!ret)
-		return (NULL);
+	ptr = malloc (sizeof(char) * (ft_strlen(handle_string) - i + 1));
 	i++;
-	while (str[i])
+	while (handle_string[i])
 	{
-		ret[j] = str[i];
+		ptr[j] = handle_string[i];
 		i++;
 		j++;
 	}
-	ret[j] = '\0';
-	free(str);
-	return (ret);
+	ptr[j] = '\0';
+	free(handle_string);
+	return (ptr);
 }
-
